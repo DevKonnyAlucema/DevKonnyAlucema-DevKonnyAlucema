@@ -1,4 +1,4 @@
-<h1 align="center">console.log(" ¡Hola Mundo! <img src="https://www.emojiall.com/images/60/telegram/1f44b.gif" width="40px"> ");</h1>
+<h1 align="center">print.ln (" ¡Holiii!");</h1>
 <h2 align="center">Soy Konny Liseth Alucema 🧑‍💻</h2>
 <h3 align="center">Apasionada desarrolladora Fullstack de Colombia</h3>
 
