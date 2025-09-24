@@ -1,12 +1,9 @@
 name: Generate Snake Images
 
 on:
-  schedule:
-    - cron: "0 0 * * *"     # corre cada día a medianoche UTC
-  workflow_dispatch:        # permite ejecutarlo manualmente
-
-permissions:
-  contents: write           # necesario para actualizar la rama 'output'
+  schedule: # Ejecuta automáticamente una vez al día
+    - cron: "0 0 * * *"
+  workflow_dispatch: # Permite ejecutarlo manualmente
 
 jobs:
   generate:
@@ -14,16 +11,18 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
 
-      - name: Generate contribution snake images
+      - name: Generate Snake
         uses: Platane/snk@v3
         with:
           github_user_name: DevKonnyAlucema
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
 
-      - name: Publish generated images to 'output' branch
+      - name: Push Snake to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
