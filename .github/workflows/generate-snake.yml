@@ -1,0 +1,35 @@
+name: Generate Snake Images
+
+on:
+  schedule:
+    - cron: "0 0 * * *"     # corre cada día a medianoche (UTC). Ajusta si quieres otra frecuencia.
+  workflow_dispatch:        # permite ejecutarlo manualmente desde la pestaña Actions
+
+permissions:
+  contents: write           # necesario para poder crear/actualizar la branch de salida
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate contribution snake images
+        uses: Platane/snk@v3
+        with:
+          github_user_name: DevKonnyAlucema
+          # el action genera por defecto:
+          # github-contribution-grid-snake.svg y github-contribution-grid-snake-dark.svg
+          # archivos resultantes en la carpeta 'dist/'
+
+      - name: Publish generated images to 'output' branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
